@@ -10,7 +10,7 @@
         </resource-bundle>
         <resource-bundle>
             <base-name>/Resources/DvdBundle</base-name>
-            <var>bundle</var>
+            <var>dvdBundle</var>
         </resource-bundle>
     </application>
 </faces-config>

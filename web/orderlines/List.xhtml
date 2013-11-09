@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOrderlinesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOrderlinesEmpty}" rendered="#{orderlinesController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{orderlinesController.items.rowCount > 0}">
+                    <h:outputText value="#{orderlinesController.pagination.pageFirstItem + 1}..#{orderlinesController.pagination.pageLastItem + 1}/#{orderlinesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{orderlinesController.previous}" value="#{bundle.Previous} #{orderlinesController.pagination.pageSize}" rendered="#{orderlinesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{orderlinesController.next}" value="#{bundle.Next} #{orderlinesController.pagination.pageSize}" rendered="#{orderlinesController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{orderlinesController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderlinesTitle_orderLineId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orderLineId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderlinesTitle_dvdId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dvdId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderlinesTitle_orderId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.orderId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrderlinesTitle_quantity}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantity}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{orderlinesController.prepareView}" value="#{bundle.ListOrderlinesViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{orderlinesController.prepareEdit}" value="#{bundle.ListOrderlinesEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{orderlinesController.destroy}" value="#{bundle.ListOrderlinesDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{orderlinesController.prepareCreate}" value="#{bundle.ListOrderlinesCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListOrderlinesIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

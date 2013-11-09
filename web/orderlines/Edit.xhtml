@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditOrderlinesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditOrderlinesLabel_orderLineId}" for="orderLineId" />
+                    <h:inputText id="orderLineId" value="#{orderlinesController.selected.orderLineId}" title="#{bundle.EditOrderlinesTitle_orderLineId}" required="true" requiredMessage="#{bundle.EditOrderlinesRequiredMessage_orderLineId}"/>
+                    <h:outputLabel value="#{bundle.EditOrderlinesLabel_dvdId}" for="dvdId" />
+                    <h:inputText id="dvdId" value="#{orderlinesController.selected.dvdId}" title="#{bundle.EditOrderlinesTitle_dvdId}" required="true" requiredMessage="#{bundle.EditOrderlinesRequiredMessage_dvdId}"/>
+                    <h:outputLabel value="#{bundle.EditOrderlinesLabel_orderId}" for="orderId" />
+                    <h:inputText id="orderId" value="#{orderlinesController.selected.orderId}" title="#{bundle.EditOrderlinesTitle_orderId}" required="true" requiredMessage="#{bundle.EditOrderlinesRequiredMessage_orderId}"/>
+                    <h:outputLabel value="#{bundle.EditOrderlinesLabel_quantity}" for="quantity" />
+                    <h:inputText id="quantity" value="#{orderlinesController.selected.quantity}" title="#{bundle.EditOrderlinesTitle_quantity}" required="true" requiredMessage="#{bundle.EditOrderlinesRequiredMessage_quantity}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{orderlinesController.update}" value="#{bundle.EditOrderlinesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditOrderlinesViewLink}"/>
+                <br />
+                <h:commandLink action="#{orderlinesController.prepareList}" value="#{bundle.EditOrderlinesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditOrderlinesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
