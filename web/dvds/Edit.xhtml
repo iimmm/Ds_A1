@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDvdsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDvdsLabel_dvdId}" for="dvdId" />
+                    <h:inputText id="dvdId" value="#{dvdsController.selected.dvdId}" title="#{bundle.EditDvdsTitle_dvdId}" required="true" requiredMessage="#{bundle.EditDvdsRequiredMessage_dvdId}"/>
+                    <h:outputLabel value="#{bundle.EditDvdsLabel_title}" for="title" />
+                    <h:inputText id="title" value="#{dvdsController.selected.title}" title="#{bundle.EditDvdsTitle_title}" required="true" requiredMessage="#{bundle.EditDvdsRequiredMessage_title}"/>
+                    <h:outputLabel value="#{bundle.EditDvdsLabel_genre}" for="genre" />
+                    <h:inputText id="genre" value="#{dvdsController.selected.genre}" title="#{bundle.EditDvdsTitle_genre}" required="true" requiredMessage="#{bundle.EditDvdsRequiredMessage_genre}"/>
+                    <h:outputLabel value="#{bundle.EditDvdsLabel_price}" for="price" />
+                    <h:inputText id="price" value="#{dvdsController.selected.price}" title="#{bundle.EditDvdsTitle_price}" required="true" requiredMessage="#{bundle.EditDvdsRequiredMessage_price}"/>
+                    <h:outputLabel value="#{bundle.EditDvdsLabel_releaseYear}" for="releaseYear" />
+                    <h:inputText id="releaseYear" value="#{dvdsController.selected.releaseYear}" title="#{bundle.EditDvdsTitle_releaseYear}" required="true" requiredMessage="#{bundle.EditDvdsRequiredMessage_releaseYear}"/>
+                    <h:outputLabel value="#{bundle.EditDvdsLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{dvdsController.selected.description}" title="#{bundle.EditDvdsTitle_description}" />
+                    <h:outputLabel value="#{bundle.EditDvdsLabel_studio}" for="studio" />
+                    <h:inputText id="studio" value="#{dvdsController.selected.studio}" title="#{bundle.EditDvdsTitle_studio}" />
+                </h:panelGrid>
+                <h:commandLink action="#{dvdsController.update}" value="#{bundle.EditDvdsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDvdsViewLink}"/>
+                <br />
+                <h:commandLink action="#{dvdsController.prepareList}" value="#{bundle.EditDvdsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDvdsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
