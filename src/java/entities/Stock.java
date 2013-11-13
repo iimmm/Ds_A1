@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Stock.findAll", query = "SELECT s FROM Stock s"),
     @NamedQuery(name = "Stock.findByStockId", query = "SELECT s FROM Stock s WHERE s.stockId = :stockId"),
+    @NamedQuery(name = "Stock.findByDvdId", query = "SELECT s FROM Stock s WHERE s.dvdId = :dvdId"),
     @NamedQuery(name = "Stock.findByQuantity", query = "SELECT s FROM Stock s WHERE s.quantity = :quantity")})
 public class Stock implements Serializable {
     private static final long serialVersionUID = 1L;

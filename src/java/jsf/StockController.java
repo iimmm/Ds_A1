@@ -1,9 +1,9 @@
 package jsf;
 
-import entities.Dvds;
+import entities.Stock;
 import jsf.util.JsfUtil;
 import jsf.util.PaginationHelper;
-import session.DvdsFacade;
+import session.StockFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,36 +18,35 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-
-@Named("dvdsController")
+@Named("stockController")
 @SessionScoped
-public class DvdsController implements Serializable {
+public class StockController implements Serializable {
 
-
-    private Dvds current;
+    private Stock current;
     private DataModel items = null;
-    @EJB private session.DvdsFacade ejbFacade;
+    @EJB
+    private session.StockFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public DvdsController() {
+    public StockController() {
     }
 
-    public Dvds getSelected() {
+    public Stock getSelected() {
         if (current == null) {
-            current = new Dvds();
+            current = new Stock();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private DvdsFacade getFacade() {
+    private StockFacade getFacade() {
         return ejbFacade;
     }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
-
                 @Override
                 public int getItemsCount() {
                     return getFacade().count();
@@ -55,7 +54,7 @@ public class DvdsController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -68,13 +67,13 @@ public class DvdsController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Dvds)getItems().getRowData();
+        current = (Stock) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Dvds();
+        current = new Stock();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -82,7 +81,7 @@ public class DvdsController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("DvdsCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("StockCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/StockBundle").getString("PersistenceErrorOccured"));
@@ -91,7 +90,7 @@ public class DvdsController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Dvds)getItems().getRowData();
+        current = (Stock) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -99,7 +98,7 @@ public class DvdsController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("DvdsUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("StockUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/StockBundle").getString("PersistenceErrorOccured"));
@@ -108,7 +107,7 @@ public class DvdsController implements Serializable {
     }
 
     public String destroy() {
-        current = (Dvds)getItems().getRowData();
+        current = (Stock) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -132,7 +131,7 @@ public class DvdsController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("DvdsDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("StockDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/StockBundle").getString("PersistenceErrorOccured"));
         }
@@ -142,14 +141,14 @@ public class DvdsController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count-1;
+            selectedItemIndex = count - 1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -188,21 +187,21 @@ public class DvdsController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Dvds getDvds(java.lang.Integer id) {
+    public Stock getStock(java.lang.Integer id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass=Dvds.class)
-    public static class DvdsControllerConverter implements Converter {
+    @FacesConverter(forClass = Stock.class)
+    public static class StockControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DvdsController controller = (DvdsController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "dvdsController");
-            return controller.getDvds(getKey(value));
+            StockController controller = (StockController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "stockController");
+            return controller.getStock(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -222,14 +221,12 @@ public class DvdsController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Dvds) {
-                Dvds o = (Dvds) object;
-                return getStringKey(o.getDvdId());
+            if (object instanceof Stock) {
+                Stock o = (Stock) object;
+                return getStringKey(o.getStockId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+Dvds.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Stock.class.getName());
             }
         }
-
     }
-
 }

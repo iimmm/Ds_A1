@@ -15,6 +15,8 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDvdsLabel_dvdId}" for="dvdId" />
+                    <h:inputText id="dvdId" value="#{dvdsController.selected.dvdId}" title="#{bundle.CreateDvdsTitle_dvdId}" required="true" requiredMessage="#{bundle.CreateDvdsRequiredMessage_dvdId}"/>
                     <h:outputLabel value="#{bundle.CreateDvdsLabel_title}" for="title" />
                     <h:inputText id="title" value="#{dvdsController.selected.title}" title="#{bundle.CreateDvdsTitle_title}" required="true" requiredMessage="#{bundle.CreateDvdsRequiredMessage_title}"/>
                     <h:outputLabel value="#{bundle.CreateDvdsLabel_genre}" for="genre" />

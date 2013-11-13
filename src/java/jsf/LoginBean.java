@@ -30,6 +30,13 @@ public class LoginBean {
     private boolean isAdmin;  
     private Date birthdate;
 
+    
+    private Users loggedUser;
+
+    public Users getUser() {
+        return loggedUser;
+    }
+    
     public Date getBirthdate() {
         return birthdate;
     }
@@ -81,7 +88,7 @@ public class LoginBean {
 
         try {
             Users user = ejbFacade.findUserByName(name);
-
+            this.loggedUser = user;
             if (user != null && password.equals(user.getPassword())) {
 
                 if (!user.getIsAdmin()) {
