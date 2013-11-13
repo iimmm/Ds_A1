@@ -21,4 +21,22 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+<!--    <filter>
+        <filter-name>UserAuthenticationFilter</filter-name>
+        <filter-class>security.UserAuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserAuthenticationFilter</filter-name>
+        <url-pattern>/faces/dvds/shop.xhtml</url-pattern>       
+    </filter-mapping>
+    <filter>
+        <filter-name>AdminAuthenticationFilter</filter-name>
+        <filter-class>security.AdminAuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserAuthenticationFilter</filter-name>
+         <url-pattern>/faces/dvds/List.xhtml</url-pattern>       
+         <url-pattern>/faces/dvds/Create.xhtml</url-pattern>    
+         <url-pattern>/faces/dvds/Edit.xhtml</url-pattern>          
+    </filter-mapping>-->
 </web-app>
