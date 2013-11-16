@@ -16,6 +16,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class StockFacade extends AbstractFacade<Stock> {
+
     @PersistenceContext(unitName = "A3PU")
     private EntityManager em;
 
@@ -27,11 +28,10 @@ public class StockFacade extends AbstractFacade<Stock> {
     public StockFacade() {
         super(Stock.class);
     }
-    
-    public Stock findByDvdId(int dvdId){
+
+    public Stock findByDvdId(int dvdId) {
         Query query = getEntityManager().createNamedQuery("Stock.findByDvdId");
-        query.setParameter("dvdId", dvdId);
-        return (Stock)query.getSingleResult(); 
+        query.setParameter("id", dvdId);
+        return (Stock) query.getSingleResult();
     }
-    
 }

@@ -9,29 +9,26 @@ import entities.Stock;
 import java.util.HashMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.inject.Named;
 
 /**
  *
  * @author Imm
  */
 @Stateful
-public class ShoppingCart {
+@LocalBean
+public class ShoppingCart implements ShoppingCartLocal {
 
     @EJB
-    private DvdsFacade dvdsBean;
-    @EJB
     private StockFacade stockBean;
-    @EJB
-    private OrdersFacade ordersBean;
-    @EJB
-    private OrderlinesFacade orderLinesBean;
     private HashMap<Dvds, Integer> cart;
-   
-    public HashMap<Dvds,Integer> getCartContents(){
+
+    public HashMap<Dvds, Integer> getCartContents() {
         return cart;
     }
-    
+
     @PostConstruct
     private void init() {
         cart = new HashMap<Dvds, Integer>();
@@ -55,6 +52,7 @@ public class ShoppingCart {
         return "Added to cart";
     }
 
-
-   
+    public void clearCart() {
+        cart = new HashMap<Dvds, Integer>();
+    }
 }

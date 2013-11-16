@@ -7,78 +7,63 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListDvdsTitle}"></h:outputText>
+            <h:outputText value="#{dvdBundle.ListDvdsTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListDvdsEmpty}" rendered="#{dvdsController.items.rowCount == 0}"/>
+                <h:outputText escape="false" value="#{dvdBundle.ListDvdsEmpty}" rendered="#{dvdsController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{dvdsController.items.rowCount > 0}">
                     <h:outputText value="#{dvdsController.pagination.pageFirstItem + 1}..#{dvdsController.pagination.pageLastItem + 1}/#{dvdsController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{dvdsController.previous}" value="#{bundle.Previous} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{dvdsController.next}" value="#{bundle.Next} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:commandLink action="#{dvdsController.previous}" value="#{dvdBundle.Previous} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dvdsController.next}" value="#{dvdBundle.Next} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasNextPage}"/>&nbsp;
                     <h:dataTable value="#{dvdsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDvdsTitle_dvdId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dvdId}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDvdsTitle_title}"/>
+                                <h:outputText value="#{dvdBundle.ListDvdsTitle_title}"/>
                             </f:facet>
                             <h:outputText value="#{item.title}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDvdsTitle_genre}"/>
+                                <h:outputText value="#{dvdBundle.ListDvdsTitle_genre}"/>
                             </f:facet>
                             <h:outputText value="#{item.genre}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDvdsTitle_price}"/>
+                                <h:outputText value="#{dvdBundle.ListDvdsTitle_price}"/>
                             </f:facet>
                             <h:outputText value="#{item.price}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDvdsTitle_releaseYear}"/>
+                                <h:outputText value="#{dvdBundle.ListDvdsTitle_releaseYear}"/>
                             </f:facet>
                             <h:outputText value="#{item.releaseYear}"/>
-                        </h:column>
+                        </h:column>     
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDvdsTitle_description}"/>
+                                <h:outputText value="Buy"/>
                             </f:facet>
-                            <h:outputText value="#{item.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDvdsTitle_studio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.studio}"/>
-                        </h:column>
+                            <h:outputText value="#{item.releaseYear}"/>
+                        </h:column>              
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{dvdsController.prepareView}" value="#{bundle.ListDvdsViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{dvdsController.prepareEdit}" value="#{bundle.ListDvdsEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{dvdsController.destroy}" value="#{bundle.ListDvdsDestroyLink}"/>
+                            <h:commandLink action="#{dvdsController.prepareView}" value="#{dvdBundle.ListDvdsViewLink}"/>
+                            <h:commandButton action="#{shopManager.addToCart(item)}" />
+
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
+
                 <br />
-                <h:commandLink action="#{dvdsController.prepareCreate}" value="#{bundle.ListDvdsCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListDvdsIndexLink}"/>
+                <h:link outcome="/index" value="#{dvdBundle.ListDvdsIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

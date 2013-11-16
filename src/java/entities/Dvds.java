@@ -36,8 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Dvds.findByDescription", query = "SELECT d FROM Dvds d WHERE d.description = :description"),
     @NamedQuery(name = "Dvds.findByStudio", query = "SELECT d FROM Dvds d WHERE d.studio = :studio")})
 public class Dvds implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dvdId")
-    private Collection<Stock> stockCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,6 +67,8 @@ public class Dvds implements Serializable {
     @Size(max = 45)
     @Column(name = "Studio")
     private String studio;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dvd")
+    private Collection<Stock> stockCollection;
 
     public Dvds() {
     }
@@ -140,6 +141,14 @@ public class Dvds implements Serializable {
         this.studio = studio;
     }
 
+    public Collection<Stock> getStockCollection() {
+        return stockCollection;
+    }
+
+    public void setStockCollection(Collection<Stock> stockCollection) {
+        this.stockCollection = stockCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -164,13 +173,4 @@ public class Dvds implements Serializable {
     public String toString() {
         return "entities.Dvds[ dvdId=" + dvdId + " ]";
     }
-
-    public Collection<Stock> getStockCollection() {
-        return stockCollection;
-    }
-
-    public void setStockCollection(Collection<Stock> stockCollection) {
-        this.stockCollection = stockCollection;
-    }
-    
 }

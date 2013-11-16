@@ -81,10 +81,10 @@ public class OrderlinesController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("OrderlinesCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resource/OrderlinesBundle").getString("OrderlinesCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resource/OrderlinesBundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -98,10 +98,10 @@ public class OrderlinesController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("OrderlinesUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resource/OrderlinesBundle").getString("OrderlinesUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resource/OrderlinesBundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -131,9 +131,9 @@ public class OrderlinesController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("OrderlinesDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resource/OrderlinesBundle").getString("OrderlinesDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resource/OrderlinesBundle").getString("PersistenceErrorOccured"));
         }
     }
 

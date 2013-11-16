@@ -10,14 +10,14 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import entities.Users;
-
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author Imm
  */
+@ManagedBean
 @SessionScoped
-@Named
 public class LoginBean {
 
     public static final String AUTH_KEY = "app.user.name";
@@ -27,16 +27,14 @@ public class LoginBean {
     private String name;
     private String password;
     private String HomeAddress;
-    private boolean isAdmin;  
+    private boolean isAdmin;
     private Date birthdate;
-
-    
     private Users loggedUser;
 
     public Users getUser() {
         return loggedUser;
     }
-    
+
     public Date getBirthdate() {
         return birthdate;
     }
@@ -44,7 +42,6 @@ public class LoginBean {
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
-   
 
     public boolean isIsAdmin() {
         return isAdmin;
@@ -92,17 +89,17 @@ public class LoginBean {
             if (user != null && password.equals(user.getPassword())) {
 
                 if (!user.getIsAdmin()) {
-                  
+
                     HomeAddress = user.getAddress();
-                    isAdmin = user.getIsAdmin();              
+                    isAdmin = user.getIsAdmin();
 
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
                             .remove(IS_ADMIN);
-                    return "ownpage";
+                    return "shop";
                 }
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(AUTH_KEY, name);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(IS_ADMIN, isAdmin);
-                return "/users/List";
+                return "/dvds/List";
             }
 
 

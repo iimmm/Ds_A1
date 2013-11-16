@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewDvdsTitle}"></h:outputText>
+            <h:outputText value="#{dvdBundle.ViewDvdsTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -15,33 +15,33 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewDvdsLabel_dvdId}"/>
-                    <h:outputText value="#{dvdsController.selected.dvdId}" title="#{bundle.ViewDvdsTitle_dvdId}"/>
-                    <h:outputText value="#{bundle.ViewDvdsLabel_title}"/>
-                    <h:outputText value="#{dvdsController.selected.title}" title="#{bundle.ViewDvdsTitle_title}"/>
-                    <h:outputText value="#{bundle.ViewDvdsLabel_genre}"/>
-                    <h:outputText value="#{dvdsController.selected.genre}" title="#{bundle.ViewDvdsTitle_genre}"/>
-                    <h:outputText value="#{bundle.ViewDvdsLabel_price}"/>
-                    <h:outputText value="#{dvdsController.selected.price}" title="#{bundle.ViewDvdsTitle_price}"/>
-                    <h:outputText value="#{bundle.ViewDvdsLabel_releaseYear}"/>
-                    <h:outputText value="#{dvdsController.selected.releaseYear}" title="#{bundle.ViewDvdsTitle_releaseYear}"/>
-                    <h:outputText value="#{bundle.ViewDvdsLabel_description}"/>
-                    <h:outputText value="#{dvdsController.selected.description}" title="#{bundle.ViewDvdsTitle_description}"/>
-                    <h:outputText value="#{bundle.ViewDvdsLabel_studio}"/>
-                    <h:outputText value="#{dvdsController.selected.studio}" title="#{bundle.ViewDvdsTitle_studio}"/>
+                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_dvdId}"/>
+                    <h:outputText value="#{dvdsController.selected.dvdId}" title="#{dvdBundle.ViewDvdsTitle_dvdId}"/>
+                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_title}"/>
+                    <h:outputText value="#{dvdsController.selected.title}" title="#{dvdBundle.ViewDvdsTitle_title}"/>
+                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_genre}"/>
+                    <h:outputText value="#{dvdsController.selected.genre}" title="#{dvdBundle.ViewDvdsTitle_genre}"/>
+                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_price}"/>
+                    <h:outputText value="#{dvdsController.selected.price}" title="#{dvdBundle.ViewDvdsTitle_price}"/>
+                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_releaseYear}"/>
+                    <h:outputText value="#{dvdsController.selected.releaseYear}" title="#{dvdBundle.ViewDvdsTitle_releaseYear}"/>
+                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_description}"/>
+                    <h:outputText value="#{dvdsController.selected.description}" title="#{dvdBundle.ViewDvdsTitle_description}"/>
+                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_studio}"/>
+                    <h:outputText value="#{dvdsController.selected.studio}" title="#{dvdBundle.ViewDvdsTitle_studio}"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{dvdsController.destroyAndView}" value="#{bundle.ViewDvdsDestroyLink}"/>
+                <h:commandLink action="#{dvdsController.destroyAndView}" value="#{dvdBundle.ViewDvdsDestroyLink}"/>
                 <br />
                 <br />
-                <h:link outcome="Edit" value="#{bundle.ViewDvdsEditLink}"/>
+                <h:link outcome="Edit" value="#{dvdBundle.ViewDvdsEditLink}"/>
                 <br />
-                <h:commandLink action="#{dvdsController.prepareCreate}" value="#{bundle.ViewDvdsCreateLink}" />
+                <h:commandLink action="#{dvdsController.prepareCreate}" value="#{dvdBundle.ViewDvdsCreateLink}" />
                 <br />
-                <h:commandLink action="#{dvdsController.prepareList}" value="#{bundle.ViewDvdsShowAllLink}"/>
+                <h:commandLink action="#{dvdsController.prepareList}" value="#{dvdBundle.ViewDvdsShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ViewDvdsIndexLink}"/>
+                <h:link outcome="/index" value="#{dvdBundle.ViewDvdsIndexLink}"/>
 
             </h:form>
         </ui:define>

@@ -9,12 +9,11 @@ import entities.Orderlines;
 import entities.Orders;
 import entities.Stock;
 import entities.Users;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
@@ -22,8 +21,8 @@ import javax.ejb.TransactionAttributeType;
  *
  * @author Imm
  */
-@Stateless
-public class ShopBean {
+@Stateful
+public class ShopServiceBean implements ShopServiceBeanLocal {
 
     @EJB
     private UsersFacade usersBean;
@@ -36,17 +35,13 @@ public class ShopBean {
     @EJB
     private StockFacade stockBean;
     @EJB
-    private ShoppingCart cartBean;
+    private ShoppingCartLocal cartBean;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void completePurchase(Users user) {
 
         updateStock(user);
 
-//    for(Product product : products){
-//      em.persist(product);
-//    }
-//    products.clear();
     }
 
     private String updateStock(Users user) {
@@ -56,12 +51,12 @@ public class ShopBean {
         order.setDate(new Date(System.currentTimeMillis()));
         order.setUserId(user);
         ordersBean.create(order);
-        
+
         HashMap<Dvds, Integer> cartContents = cartBean.getCartContents();
         for (Map.Entry<Dvds, Integer> entry : cartContents.entrySet()) {
 
             Stock stock = stockBean.findByDvdId(entry.getKey().getDvdId());
- 
+
             if (stock != null && stock.getQuantity() >= entry.getValue()) {
 
                 stock.setQuantity(stock.getQuantity() - entry.getValue());
@@ -82,7 +77,6 @@ public class ShopBean {
         orderLine.setQuantity(entry.getValue());
         orderLine.setOrderId(order.getOrderId());
         orderLinesBean.create(orderLine);
-        
 
     }
 }

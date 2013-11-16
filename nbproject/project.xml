@@ -17,6 +17,7 @@
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>AdminAuthenticationFilter</word>
             <word>dvdBundle</word>
+            <word>dvds</word>
             <word>UserAuthenticationFilter</word>
         </spellchecker-wordlist>
     </configuration>

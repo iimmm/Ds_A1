@@ -8,6 +8,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,13 +27,14 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Stock.findAll", query = "SELECT s FROM Stock s"),
     @NamedQuery(name = "Stock.findByStockId", query = "SELECT s FROM Stock s WHERE s.stockId = :stockId"),
-    @NamedQuery(name = "Stock.findByDvdId", query = "SELECT s FROM Stock s WHERE s.dvdId = :dvdId"),
+    @NamedQuery(name = "Stock.findByDvdId", query = "SELECT s FROM Stock s WHERE s.dvd.dvdId = :id"),
     @NamedQuery(name = "Stock.findByQuantity", query = "SELECT s FROM Stock s WHERE s.quantity = :quantity")})
 public class Stock implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "StockId")
     private Integer stockId;
     @Basic(optional = false)
@@ -40,7 +43,7 @@ public class Stock implements Serializable {
     private int quantity;
     @JoinColumn(name = "DvdId", referencedColumnName = "DvdId")
     @ManyToOne(optional = false)
-    private Dvds dvdId;
+    private Dvds dvd;
 
     public Stock() {
     }
@@ -71,11 +74,11 @@ public class Stock implements Serializable {
     }
 
     public Dvds getDvdId() {
-        return dvdId;
+        return dvd;
     }
 
     public void setDvdId(Dvds dvdId) {
-        this.dvdId = dvdId;
+        this.dvd = dvdId;
     }
 
     @Override
@@ -102,5 +105,4 @@ public class Stock implements Serializable {
     public String toString() {
         return "entities.Stock[ stockId=" + stockId + " ]";
     }
-    
 }
