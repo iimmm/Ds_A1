@@ -9,6 +9,7 @@
         </ui:define>
         <ui:define name="body">
             <h:panelGroup class="content" layout="block">
+                <h:form><h:commandButton value="Register" action="#{usersController.prepareCreate}"></h:commandButton></h:form>
                 <h:form>
                     <h:panelGrid columns="2">                
                         <h:outputText value="Name"></h:outputText>

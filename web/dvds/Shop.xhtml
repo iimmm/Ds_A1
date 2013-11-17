@@ -56,7 +56,7 @@
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             <h:commandLink action="#{dvdsController.prepareView}" value="#{dvdBundle.ListDvdsViewLink}"/>
-                            <h:commandButton action="#{shopManager.addToCart(item)}" />
+                            <h:commandButton action="#{shopManagerBean.addToCart(item)}" value="Add to cart" />
 
                         </h:column>
                     </h:dataTable>

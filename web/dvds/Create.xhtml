@@ -14,9 +14,7 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{dvdBundle.CreateDvdsLabel_dvdId}" for="dvdId" />
-                    <h:inputText id="dvdId" value="#{dvdsController.selected.dvdId}" title="#{dvdBundle.CreateDvdsTitle_dvdId}" required="true" requiredMessage="#{dvdBundle.CreateDvdsRequiredMessage_dvdId}"/>
+                <h:panelGrid columns="2">                 
                     <h:outputLabel value="#{dvdBundle.CreateDvdsLabel_title}" for="title" />
                     <h:inputText id="title" value="#{dvdsController.selected.title}" title="#{dvdBundle.CreateDvdsTitle_title}" required="true" requiredMessage="#{dvdBundle.CreateDvdsRequiredMessage_title}"/>
                     <h:outputLabel value="#{dvdBundle.CreateDvdsLabel_genre}" for="genre" />

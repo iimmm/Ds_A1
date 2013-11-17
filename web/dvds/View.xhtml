@@ -15,8 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{dvdBundle.ViewDvdsLabel_dvdId}"/>
-                    <h:outputText value="#{dvdsController.selected.dvdId}" title="#{dvdBundle.ViewDvdsTitle_dvdId}"/>
                     <h:outputText value="#{dvdBundle.ViewDvdsLabel_title}"/>
                     <h:outputText value="#{dvdsController.selected.title}" title="#{dvdBundle.ViewDvdsTitle_title}"/>
                     <h:outputText value="#{dvdBundle.ViewDvdsLabel_genre}"/>
@@ -29,20 +27,10 @@
                     <h:outputText value="#{dvdsController.selected.description}" title="#{dvdBundle.ViewDvdsTitle_description}"/>
                     <h:outputText value="#{dvdBundle.ViewDvdsLabel_studio}"/>
                     <h:outputText value="#{dvdsController.selected.studio}" title="#{dvdBundle.ViewDvdsTitle_studio}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{dvdsController.destroyAndView}" value="#{dvdBundle.ViewDvdsDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{dvdBundle.ViewDvdsEditLink}"/>
-                <br />
-                <h:commandLink action="#{dvdsController.prepareCreate}" value="#{dvdBundle.ViewDvdsCreateLink}" />
-                <br />
-                <h:commandLink action="#{dvdsController.prepareList}" value="#{dvdBundle.ViewDvdsShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{dvdBundle.ViewDvdsIndexLink}"/>
+                </h:panelGrid>              
+                <br />                
 
+                <br />
             </h:form>
         </ui:define>
     </ui:composition>

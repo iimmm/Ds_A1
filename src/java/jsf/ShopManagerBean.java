@@ -5,6 +5,10 @@
 package jsf;
 
 import entities.Dvds;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,7 +24,7 @@ import session.ShoppingCartLocal;
  */
 @ManagedBean
 @SessionScoped
-public class ShopManager {
+public class ShopManagerBean {
 
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
@@ -32,14 +36,23 @@ public class ShopManager {
     /**
      * Creates a new instance of ShopManager
      */
-    public ShopManager() {
+    public ShopManagerBean() {
     }
 
     public void addToCart(Dvds dvd) {
         cart.addDvd(dvd);
     }
 
+    public void completeOrder() {
+        shopBean.completePurchase(loginBean.getUser());
+        clearCart();
+    }
+
     public void clearCart() {
         cart.clearCart();
+    }
+
+    public Set<Entry<Dvds, Integer>> getCartContents() {
+        return cart.getCartContents().entrySet();
     }
 }

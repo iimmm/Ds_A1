@@ -38,9 +38,11 @@ public class ShopServiceBean implements ShopServiceBeanLocal {
     private ShoppingCartLocal cartBean;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Override
     public void completePurchase(Users user) {
 
         updateStock(user);
+        cartBean.clearCart();
 
     }
 

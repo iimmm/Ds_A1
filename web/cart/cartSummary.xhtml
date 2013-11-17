@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cart Summary</title>
+    </h:head>
+    <h:body>
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{dvdBundle.ListDvdsEmpty}" rendered="#{dvdsController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{dvdsController.items.rowCount > 0}">
+                <h:outputText value="#{dvdsController.pagination.pageFirstItem + 1}..#{dvdsController.pagination.pageLastItem + 1}/#{dvdsController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{dvdsController.previous}" value="#{dvdBundle.Previous} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{dvdsController.next}" value="#{dvdBundle.Next} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasNextPage}"/>&nbsp;
+                <h:form><h:commandButton value="logout" action="#{loginBean.logout}"></h:commandButton></h:form>
+                <h:dataTable value="#{shopManagerBean.cartContents}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Dvd"/>
+                        </f:facet>
+                        <h:outputText value="#{item.key.title}"/>
+
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Quantity"/>
+                        </f:facet>
+                        <h:outputText value="#{item.value}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+        <h:form>
+            <h:commandButton value="Complete order" action="#{shopManagerBean.completeOrder()}"></h:commandButton>
+        </h:form>
+    </h:body>
+</html>
+
