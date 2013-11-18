@@ -69,11 +69,11 @@
             <property-class>jsf.LoginBean</property-class>
             <value>#{loginBean}</value>
         </managed-property>
-        <managed-property>
+        <!--        <managed-property>
             <property-name>shopServiceBean</property-name>
             <property-class>session.ShopServiceBean</property-class>
             <value>#{shopServiceBean}</value>
-        </managed-property>
+        </managed-property>-->
         <managed-bean-class>jsf.ShopManagerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
@@ -85,7 +85,22 @@
             <to-view-id>/dvds/Shop.xhtml</to-view-id>
         </navigation-case>      
     </navigation-rule>	
-    
+    <navigation-rule>
+        <from-view-id>/cart/cartSummary.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{shopManagerBean.completeOrder()}</from-action>
+            <from-outcome>Shop</from-outcome>
+            <to-view-id>/dvds/Shop.xhtml</to-view-id>
+        </navigation-case>      
+    </navigation-rule>	    
+    <navigation-rule>
+        <from-view-id>/dvds/Shop.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{shopManagerBean.goToCart()}</from-action>
+            <from-outcome>Cart</from-outcome>
+            <to-view-id>/cart/cartSummary.xhtml</to-view-id>
+        </navigation-case>      
+    </navigation-rule>	    
     <navigation-rule>
         <from-view-id>/dvds/List.xhtml</from-view-id>
         <navigation-case>

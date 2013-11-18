@@ -10,7 +10,14 @@
             <h:outputText value="#{dvdBundle.ListDvdsTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form><h:commandButton value="logout" action="#{loginBean.logout}"></h:commandButton></h:form>
+            <h:panelGroup>
+                <h:column>
+                    <h:form><h:commandButton value="Logout" action="#{loginBean.logout}"></h:commandButton></h:form>
+                </h:column>
+                <h:column>
+                    <h:form><h:commandButton value="Go to cart" action="#{shopManagerBean.goToCart()}" ></h:commandButton></h:form>
+                </h:column>
+            </h:panelGroup>
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -18,6 +25,7 @@
 
                 <h:outputText escape="false" value="#{dvdBundle.ListDvdsEmpty}" rendered="#{dvdsController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{dvdsController.items.rowCount > 0}">
+
                     <h:outputText value="#{dvdsController.pagination.pageFirstItem + 1}..#{dvdsController.pagination.pageLastItem + 1}/#{dvdsController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{dvdsController.previous}" value="#{dvdBundle.Previous} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{dvdsController.next}" value="#{dvdBundle.Next} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasNextPage}"/>&nbsp;

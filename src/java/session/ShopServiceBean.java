@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.ejb.EJB;
 
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.enterprise.context.SessionScoped;
@@ -27,9 +28,10 @@ import javax.faces.bean.ManagedBean;
  *
  * @author Imm
  */
-@ManagedBean(name = "shopServiceBean")
-@SessionScoped
-public class ShopServiceBean implements Serializable {
+@Stateless
+//@ManagedBean(name = "shopServiceBean")
+//@SessionScoped
+public class ShopServiceBean implements ShopServiceBeanLocal, Serializable {
 
     @EJB
     private OrdersFacade ordersBean;
@@ -45,7 +47,7 @@ public class ShopServiceBean implements Serializable {
     public void completePurchase(Users user) {
 
         updateStock(user);
-        // cartBean.clearCart();
+        cartBean.clearCart();
 
     }
 
@@ -81,16 +83,12 @@ public class ShopServiceBean implements Serializable {
     }
 
     private void createOrderLine(Orders order, Map.Entry<Dvds, Integer> entry) {
-//        try {
+
         Orderlines orderLine = new Orderlines();
         orderLine.setDvdId(entry.getKey());
         orderLine.setQuantity(entry.getValue());
         orderLine.setOrderId(order);
-//            orderLinesBean.create(orderLine);
-//        } catch (Exception e) {
-//
-//            e.printStackTrace();
-//        }
+
         if (order.getOrderlinesCollection() == null) {
             order.setOrderlinesCollection(new ArrayList<Orderlines>());
         }

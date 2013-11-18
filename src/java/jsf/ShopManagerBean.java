@@ -37,8 +37,9 @@ public class ShopManagerBean implements Serializable {
     public void setLoginBean(LoginBean loginBean) {
         this.loginBean = loginBean;
     }
-    @ManagedProperty(value = "#{shopServiceBean}")
-    private ShopServiceBean shopServiceBean;
+    // @ManagedProperty(value = "#{shopServiceBean}")
+    @EJB
+    private ShopServiceBeanLocal shopServiceBean;
 
     public void setShopServiceBean(ShopServiceBean shopServiceBean) {
         this.shopServiceBean = shopServiceBean;
@@ -65,20 +66,25 @@ public class ShopManagerBean implements Serializable {
         this.current = current;
     }
 
+    public String goToCart() {
+        return "Cart";
+    }
+
     public String setStock(Dvds dvd) {
 
         current = dvd;
-
         return "CreateStock";
     }
 
-    public void completeOrder() {
+    public String completeOrder() {
 
         Users user = loginBean != null ? loginBean.getUser() : null;
         if (user != null) {
             shopServiceBean.completePurchase(user);
-            clearCart();
+
         }
+
+        return "Shop";
     }
 
     public void clearCart() {

@@ -7,24 +7,23 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateStockTitle}"></h:outputText>
+            <h:outputText value="#{stockBundle.CreateStockTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h:form> <h:commandButton value="Go to list" action="#{dvdsController.prepareList}" /></h:form>
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
 
-                    <h:outputLabel value="#{bundle.CreateStockLabel_quantity}" for="quantity" />
-                    <h:inputText id="quantity" value="#{stockController.selected.quantity}" title="#{bundle.CreateStockTitle_quantity}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_quantity}"/>
-                    <h:outputLabel value="#{bundle.CreateStockLabel_dvdId}" for="dvdId" />
-                    <h:inputText value="#{stockController.selected.dvdId}" title="#{bundle.CreateStockTitle_dvdId}" readonly="readonly"/>
+                    <h:outputLabel value="#{stockBundle.CreateStockLabel_quantity}" for="quantity" />
+                    <h:inputText id="quantity" value="#{stockController.selected.quantity}" title="#{stockBundle.CreateStockTitle_quantity}" required="true" requiredMessage="#{stockBundle.CreateStockRequiredMessage_quantity}"/>
+                    <h:outputLabel value="Dvd Title" for="dvdId" />
+                    <h:inputText disabled="true" value="#{shopManagerBean.current.title}" />
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{stockController.create}" value="#{bundle.CreateStockSaveLink}" />
-                <br />
-
+                <h:commandButton action="#{stockController.create}" value="Create" />
 
             </h:form>
         </ui:define>

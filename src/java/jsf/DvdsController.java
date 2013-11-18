@@ -81,10 +81,10 @@ public class DvdsController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Resources/StockBundle").getString("DvdsCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("StockBundle").getString("DvdsCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Resources/StockBundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("StockBundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -98,10 +98,10 @@ public class DvdsController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("DvdsUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("StockBundle").getString("DvdsUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/StockBundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("StockBundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -131,9 +131,9 @@ public class DvdsController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/StockBundle").getString("DvdsDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("StockBundle").getString("DvdsDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/resources/StockBundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("StockBundle").getString("PersistenceErrorOccured"));
         }
     }
 
