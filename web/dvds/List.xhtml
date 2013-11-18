@@ -57,7 +57,7 @@
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="true">
                             <f:facet name="header">
                                 <h:outputText value="#{dvdBundle.ListDvdsTitle_studio}"/>
                             </f:facet>
@@ -67,8 +67,14 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
+                            <h:commandButton  action="#{shopManagerBean.setStock(item)}" value ="Set stock" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>                           
                             <h:commandLink action="#{dvdsController.prepareView}" value="#{dvdBundle.ListDvdsViewLink}"/>
-                            <h:outputText value=" "/>
+                            <h:outputText value=" "/>  
                             <h:commandLink action="#{dvdsController.prepareEdit}" value="#{dvdBundle.ListDvdsEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{dvdsController.destroy}" value="#{dvdBundle.ListDvdsDestroyLink}"/>

@@ -9,25 +9,28 @@ import entities.Orderlines;
 import entities.Orders;
 import entities.Stock;
 import entities.Users;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJB;
+
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author Imm
  */
-@Stateful
-public class ShopServiceBean implements ShopServiceBeanLocal {
+@ManagedBean(name = "shopServiceBean")
+@SessionScoped
+public class ShopServiceBean implements Serializable {
 
-    @EJB
-    private UsersFacade usersBean;
-    @EJB
-    private DvdsFacade dvdsBean;
     @EJB
     private OrdersFacade ordersBean;
     @EJB
@@ -37,12 +40,12 @@ public class ShopServiceBean implements ShopServiceBeanLocal {
     @EJB
     private ShoppingCartLocal cartBean;
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    @Override
+    // @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    //  @Override
     public void completePurchase(Users user) {
 
         updateStock(user);
-        cartBean.clearCart();
+        // cartBean.clearCart();
 
     }
 
@@ -52,7 +55,9 @@ public class ShopServiceBean implements ShopServiceBeanLocal {
         Orders order = new Orders();
         order.setDate(new Date(System.currentTimeMillis()));
         order.setUserId(user);
-        ordersBean.create(order);
+
+
+        // order = ordersBean.getLatest(user.getUserId());
 
         HashMap<Dvds, Integer> cartContents = cartBean.getCartContents();
         for (Map.Entry<Dvds, Integer> entry : cartContents.entrySet()) {
@@ -69,16 +74,26 @@ public class ShopServiceBean implements ShopServiceBeanLocal {
             }
         }
 
+        ordersBean.create(order);
+
+
         return errors.toString();
     }
 
     private void createOrderLine(Orders order, Map.Entry<Dvds, Integer> entry) {
-
+//        try {
         Orderlines orderLine = new Orderlines();
-        orderLine.setDvdId(entry.getKey().getDvdId());
+        orderLine.setDvdId(entry.getKey());
         orderLine.setQuantity(entry.getValue());
-        orderLine.setOrderId(order.getOrderId());
-        orderLinesBean.create(orderLine);
-
+        orderLine.setOrderId(order);
+//            orderLinesBean.create(orderLine);
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//        }
+        if (order.getOrderlinesCollection() == null) {
+            order.setOrderlinesCollection(new ArrayList<Orderlines>());
+        }
+        order.getOrderlinesCollection().add(orderLine);
     }
 }

@@ -10,10 +10,12 @@
             <h:outputText value="#{dvdBundle.ListDvdsTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h:form><h:commandButton value="logout" action="#{loginBean.logout}"></h:commandButton></h:form>
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
+
                 <h:outputText escape="false" value="#{dvdBundle.ListDvdsEmpty}" rendered="#{dvdsController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{dvdsController.items.rowCount > 0}">
                     <h:outputText value="#{dvdsController.pagination.pageFirstItem + 1}..#{dvdsController.pagination.pageLastItem + 1}/#{dvdsController.pagination.itemsCount}"/>&nbsp;
@@ -45,15 +47,10 @@
                             </f:facet>
                             <h:outputText value="#{item.releaseYear}"/>
                         </h:column>     
+
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Buy"/>
-                            </f:facet>
-                            <h:outputText value="#{item.releaseYear}"/>
-                        </h:column>              
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="Actions"/>
                             </f:facet>
                             <h:commandLink action="#{dvdsController.prepareView}" value="#{dvdBundle.ListDvdsViewLink}"/>
                             <h:commandButton action="#{shopManagerBean.addToCart(item)}" value="Add to cart" />

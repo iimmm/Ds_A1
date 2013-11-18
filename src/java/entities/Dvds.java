@@ -36,6 +36,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Dvds.findByDescription", query = "SELECT d FROM Dvds d WHERE d.description = :description"),
     @NamedQuery(name = "Dvds.findByStudio", query = "SELECT d FROM Dvds d WHERE d.studio = :studio")})
 public class Dvds implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dvdId")
+    private Collection<Orderlines> orderlinesCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -172,5 +174,13 @@ public class Dvds implements Serializable {
     @Override
     public String toString() {
         return "entities.Dvds[ dvdId=" + dvdId + " ]";
+    }
+
+    public Collection<Orderlines> getOrderlinesCollection() {
+        return orderlinesCollection;
+    }
+
+    public void setOrderlinesCollection(Collection<Orderlines> orderlinesCollection) {
+        this.orderlinesCollection = orderlinesCollection;
     }
 }

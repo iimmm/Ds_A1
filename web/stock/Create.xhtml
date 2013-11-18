@@ -15,8 +15,7 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateStockLabel_stockId}" for="stockId" />
-                    <h:inputText id="stockId" value="#{stockController.selected.stockId}" title="#{bundle.CreateStockTitle_stockId}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_stockId}"/>
+
                     <h:outputLabel value="#{bundle.CreateStockLabel_quantity}" for="quantity" />
                     <h:inputText id="quantity" value="#{stockController.selected.quantity}" title="#{bundle.CreateStockTitle_quantity}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_quantity}"/>
                     <h:outputLabel value="#{bundle.CreateStockLabel_dvdId}" for="dvdId" />

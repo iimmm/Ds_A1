@@ -15,8 +15,7 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{dvdBundle.EditDvdsLabel_dvdId}" for="dvdId" />
-                    <h:inputText id="dvdId" value="#{dvdsController.selected.dvdId}" title="#{dvdBundle.EditDvdsTitle_dvdId}" required="true" requiredMessage="#{dvdBundle.EditDvdsRequiredMessage_dvdId}"/>
+
                     <h:outputLabel value="#{dvdBundle.EditDvdsLabel_title}" for="title" />
                     <h:inputText id="title" value="#{dvdsController.selected.title}" title="#{dvdBundle.EditDvdsTitle_title}" required="true" requiredMessage="#{dvdBundle.EditDvdsRequiredMessage_title}"/>
                     <h:outputLabel value="#{dvdBundle.EditDvdsLabel_genre}" for="genre" />
@@ -36,9 +35,7 @@
                 <h:link outcome="View" value="#{dvdBundle.EditDvdsViewLink}"/>
                 <br />
                 <h:commandLink action="#{dvdsController.prepareList}" value="#{dvdBundle.EditDvdsShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{dvdBundle.EditDvdsIndexLink}" />
+
             </h:form>
         </ui:define>
     </ui:composition>

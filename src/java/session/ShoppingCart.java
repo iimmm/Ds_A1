@@ -6,20 +6,25 @@ package session;
 
 import entities.Dvds;
 import entities.Stock;
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
 import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
  *
  * @author Imm
  */
-@Stateful
+@Singleton
 @LocalBean
-public class ShoppingCart implements ShoppingCartLocal {
+public class ShoppingCart implements ShoppingCartLocal, Serializable {
 
     @EJB
     private StockFacade stockBean;
@@ -50,6 +55,17 @@ public class ShoppingCart implements ShoppingCartLocal {
         }
 
         return "Added to cart";
+    }
+
+    public int getTotal() {
+
+        int total = 0;
+        for (Map.Entry<Dvds, Integer> entry : cart.entrySet()) {
+
+            total += entry.getValue() * entry.getKey().getPrice();
+        }
+
+        return total;
     }
 
     public void clearCart() {

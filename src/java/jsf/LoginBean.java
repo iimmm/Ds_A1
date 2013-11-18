@@ -6,15 +6,16 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import entities.Users;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author Imm
  */
-@ManagedBean
+@ManagedBean(name = "loginBean")
 @SessionScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
 
     public static final String AUTH_KEY = "app.user.name";
     public static final String IS_ADMIN = "app.user.isadmin";

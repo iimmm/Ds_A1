@@ -8,7 +8,11 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,20 +31,19 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Orderlines.findByOrderId", query = "SELECT o FROM Orderlines o WHERE o.orderId = :orderId"),
     @NamedQuery(name = "Orderlines.findByQuantity", query = "SELECT o FROM Orderlines o WHERE o.quantity = :quantity")})
 public class Orderlines implements Serializable {
+
+    @JoinColumn(name = "OrderId", referencedColumnName = "OrderId")
+    @ManyToOne(optional = false)
+    private Orders orderId;
+    @JoinColumn(name = "DvdId", referencedColumnName = "DvdId")
+    @ManyToOne(optional = false)
+    private Dvds dvdId;
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "OrderLineId")
     private Integer orderLineId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "DvdId")
-    private int dvdId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "OrderId")
-    private int orderId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Quantity")
@@ -53,10 +56,9 @@ public class Orderlines implements Serializable {
         this.orderLineId = orderLineId;
     }
 
-    public Orderlines(Integer orderLineId, int dvdId, int orderId, int quantity) {
+    public Orderlines(Integer orderLineId, int quantity) {
         this.orderLineId = orderLineId;
-        this.dvdId = dvdId;
-        this.orderId = orderId;
+
         this.quantity = quantity;
     }
 
@@ -68,20 +70,20 @@ public class Orderlines implements Serializable {
         this.orderLineId = orderLineId;
     }
 
-    public int getDvdId() {
+    public Dvds getDvdId() {
         return dvdId;
     }
 
-    public void setDvdId(int dvdId) {
-        this.dvdId = dvdId;
+    public void setDvdId(Dvds dvd) {
+        this.dvdId = dvd;
     }
 
-    public int getOrderId() {
+    public Orders getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrderId(Orders order) {
+        this.orderId = order;
     }
 
     public int getQuantity() {
@@ -116,5 +118,4 @@ public class Orderlines implements Serializable {
     public String toString() {
         return "entities.Orderlines[ orderLineId=" + orderLineId + " ]";
     }
-    
 }

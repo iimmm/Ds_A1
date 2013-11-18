@@ -33,7 +33,12 @@
     <managed-bean>
         <managed-bean-name>loginBean</managed-bean-name>
         <managed-bean-class>jsf.LoginBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>shopServiceBean</managed-bean-name>
+        <managed-bean-class>session.ShopServiceBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
     <navigation-rule>
@@ -59,6 +64,16 @@
     </navigation-rule>
     <managed-bean>
         <managed-bean-name>shopManagerBean</managed-bean-name>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <property-class>jsf.LoginBean</property-class>
+            <value>#{loginBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>shopServiceBean</property-name>
+            <property-class>session.ShopServiceBean</property-class>
+            <value>#{shopServiceBean}</value>
+        </managed-property>
         <managed-bean-class>jsf.ShopManagerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
@@ -68,6 +83,15 @@
             <from-action>#{shopManagerBean.addToCart}</from-action>
             <from-outcome>shop</from-outcome>
             <to-view-id>/dvds/Shop.xhtml</to-view-id>
+        </navigation-case>      
+    </navigation-rule>	
+    
+    <navigation-rule>
+        <from-view-id>/dvds/List.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{shopManagerBean.setStock}</from-action>
+            <from-outcome>CreateStock</from-outcome>
+            <to-view-id>/dvds/CreateStock.xhtml</to-view-id>
         </navigation-case>      
     </navigation-rule>	
 </faces-config>

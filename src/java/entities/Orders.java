@@ -5,8 +5,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,9 +32,13 @@ import javax.validation.constraints.NotNull;
 @Table(name = "orders")
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
+    @NamedQuery(name = "Orders.findLatestByUserId", query = "SELECT o FROM Orders o WHERE o.userId.userId = :id ORDER BY o.orderId Desc"),
     @NamedQuery(name = "Orders.findByOrderId", query = "SELECT o FROM Orders o WHERE o.orderId = :orderId"),
     @NamedQuery(name = "Orders.findByDate", query = "SELECT o FROM Orders o WHERE o.date = :date")})
 public class Orders implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
+    private Collection<Orderlines> orderlinesCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,5 +114,12 @@ public class Orders implements Serializable {
     public String toString() {
         return "entities.Orders[ orderId=" + orderId + " ]";
     }
-    
+
+    public Collection<Orderlines> getOrderlinesCollection() {
+        return orderlinesCollection;
+    }
+
+    public void setOrderlinesCollection(Collection<Orderlines> orderlinesCollection) {
+        this.orderlinesCollection = orderlinesCollection;
+    }
 }
