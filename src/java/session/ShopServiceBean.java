@@ -23,6 +23,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
+import jsf.StockController;
 
 /**
  *
@@ -41,14 +43,27 @@ public class ShopServiceBean implements ShopServiceBeanLocal, Serializable {
     private StockFacade stockBean;
     @EJB
     private ShoppingCartLocal cartBean;
-
+    @Inject
+    StockController stockController;
     // @TransactionAttribute(TransactionAttributeType.REQUIRED)
     //  @Override
-    public void completePurchase(Users user) {
 
-        updateStock(user);
+    public String completePurchase(Users user) {
+
+        String message = updateStock(user);
         cartBean.clearCart();
+        return message;
+    }
 
+    public void prepareAddUpdate(Dvds dvd) {
+
+        Stock stock;
+        try {
+            stock = stockBean.findByDvdId(dvd.getDvdId());
+        } catch (Exception e) {
+            stock = new Stock();
+        }
+        stockController.prepareCreate(stock, dvd);
     }
 
     private String updateStock(Users user) {

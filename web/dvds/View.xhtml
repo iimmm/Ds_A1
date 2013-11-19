@@ -28,8 +28,9 @@
                     <h:outputText value="#{dvdBundle.ViewDvdsLabel_studio}"/>
                     <h:outputText value="#{dvdsController.selected.studio}" title="#{dvdBundle.ViewDvdsTitle_studio}"/>
                 </h:panelGrid>              
-                <br />                
-
+                <br />            
+                <h:commandLink action="#{dvdsController.prepareList}" value="#{dvdBundle.EditDvdsShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{shopManagerBean.goToShop}" value="Go to shop" immediate="true"/>
                 <br />
             </h:form>
         </ui:define>

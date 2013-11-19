@@ -1,5 +1,6 @@
 package jsf;
 
+import entities.Dvds;
 import entities.Stock;
 import jsf.util.JsfUtil;
 import jsf.util.PaginationHelper;
@@ -25,12 +26,6 @@ public class StockController implements Serializable {
 
     private Stock current;
     private DataModel items = null;
-    @ManagedProperty(value = "#{shopManagerBean}")
-    private ShopManagerBean shopManagerBean;
-
-    public void setShopManagerBean(ShopManagerBean shopManagerBean) {
-        this.shopManagerBean = shopManagerBean;
-    }
     @EJB
     private session.StockFacade ejbFacade;
     private PaginationHelper pagination;
@@ -79,19 +74,24 @@ public class StockController implements Serializable {
         return "View";
     }
 
-    public String prepareCreate() {
-        current = new Stock();
-        current.setDvdId(shopManagerBean.getCurrent());
+    public String prepareCreate(Stock stock, Dvds dvd) {
+
+        current = stock != null ? stock : new Stock();
+        current.setDvdId(dvd);
         selectedItemIndex = -1;
         return "Create";
     }
 
-    public String create() {
+    public String create(Dvds dvd) {
         try {
-            current.setDvdId(shopManagerBean.getCurrent());
-            getFacade().create(current);
+            current.setDvdId(dvd);
+            if (current.getStockId() == null) {
+                getFacade().create(current);
+            } else {
+                getFacade().edit(current);
+            }
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("StockBundle").getString("StockCreated"));
-            return prepareCreate();
+            return prepareCreate(current, dvd);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("StockBundle").getString("PersistenceErrorOccured"));
             return null;

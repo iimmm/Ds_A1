@@ -6,6 +6,7 @@ package session;
 
 import entities.Dvds;
 import entities.Orders;
+import entities.Stock;
 import entities.Users;
 import java.util.Map;
 import javax.ejb.Local;
@@ -21,5 +22,7 @@ import javax.ejb.TransactionAttributeType;
 public interface ShopServiceBeanLocal {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void completePurchase(Users user);
+    public String completePurchase(Users user);
+
+    public void prepareAddUpdate(Dvds dvd);
 }

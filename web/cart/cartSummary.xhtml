@@ -21,7 +21,7 @@
                     <br />
                     <h:commandLink action="#{dvdsController.previous}" value="#{dvdBundle.Previous} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{dvdsController.next}" value="#{dvdBundle.Next} #{dvdsController.pagination.pageSize}" rendered="#{dvdsController.pagination.hasNextPage}"/>&nbsp;
-                    <h:form><h:commandButton value="logout" action="#{loginBean.logout}"></h:commandButton></h:form>
+                    <h:form><h:commandButton value="logout" action="#{loginBean.logout}"></h:commandButton></h:form>                 
                     <br />
                     <br />
                     <h:dataTable value="#{shopManagerBean.cartContents}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
@@ -46,6 +46,7 @@
                 <br />
                 <h:commandButton value="Complete order" action="#{shopManagerBean.completeOrder()}"></h:commandButton>
                 <h:commandButton value="Clear cart" action="#{shopManagerBean.clearCart()}"></h:commandButton>
+                <h:commandButton value="Back to shop" action="#{shopManagerBean.goToShop}"></h:commandButton>
             </h:form>
         </ui:define>
     </ui:composition>

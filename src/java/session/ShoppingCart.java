@@ -42,8 +42,15 @@ public class ShoppingCart implements ShoppingCartLocal, Serializable {
     public String addDvd(Dvds dvd) {
 
         Integer quantity = cart.get(dvd);
-        Stock stock = stockBean.findByDvdId(dvd.getDvdId());
+        Stock stock;
 
+        try {
+            stock = stockBean.findByDvdId(dvd.getDvdId());
+        } catch (Exception e) {
+
+            return "Stock: 0";
+
+        }
         if (stock == null || stock.getQuantity() == 0) {
             return "Stock: 0";
         }

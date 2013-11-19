@@ -10,15 +10,19 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.ResourceBundle;
 import java.util.Set;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import jsf.util.JsfUtil;
 import session.ShopServiceBean;
 import session.ShopServiceBeanLocal;
 import session.ShoppingCartLocal;
@@ -54,7 +58,10 @@ public class ShopManagerBean implements Serializable {
     }
 
     public void addToCart(Dvds dvd) {
-        cart.addDvd(dvd);
+        String message = cart.addDvd(dvd);
+        if (message.equals("Stock 0")) {
+            JsfUtil.addErrorMessage(message);
+        }
     }
     private Dvds current;
 
@@ -70,9 +77,14 @@ public class ShopManagerBean implements Serializable {
         return "Cart";
     }
 
+    public String goToShop() {
+        return "Shop";
+    }
+
     public String setStock(Dvds dvd) {
 
         current = dvd;
+        shopServiceBean.prepareAddUpdate(dvd);
         return "CreateStock";
     }
 
@@ -80,7 +92,12 @@ public class ShopManagerBean implements Serializable {
 
         Users user = loginBean != null ? loginBean.getUser() : null;
         if (user != null) {
-            shopServiceBean.completePurchase(user);
+            String errors = shopServiceBean.completePurchase(user);
+            if (errors != null) {
+                JsfUtil.addErrorMessage(errors);
+            } else {
+                JsfUtil.addSuccessMessage("Order added.");
+            }
 
         }
 
